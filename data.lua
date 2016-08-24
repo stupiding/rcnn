@@ -150,59 +150,6 @@ local function cifar(opt)
    return trainDataProvider, testDataProvider
 end
 
-local function ucf101(opt)
---[[   local function load(dataPath, labelPath)
-      local dataFile = torch.DiskFile(dataPath, 'r', true)
-      local data = string.split(dataFile:readString('*a'), '\n')
-      dataFile:close()
-      for i = 1, #data do
-         data[i] = string.split(data[i], ',')
-      end
-
-      local labelFile = torch.DiskFile(labelPath, 'r', true)
-      local labels = string.split(labelFile:readString('*a'), '\n')
-      labelFile:close()
-      for i = 1, #labels do
-         labels[i] = tonumber(labels[i])
-      end
-
-      return data, labels
-   end
-
-   local trainData, trainLabels = load(
-      paths.concat(opt.dataDir, 'ucf_data_train1'),
-      paths.concat(opt.dataDir, 'ucf_label_train1')
-   )
-   local testData, testLabels = load(
-      paths.concat(opt.dataDir, 'ucf_data_test1'),
-      paths.concat(opt.dataDir, 'ucf_label_test1')
-   )
-]]
-local dataset = torch.load(paths.concat(opt.dataDir, opt.dataset .. '.t7'))
-local trainData, trainLabels, testData, testLabels = dataset.train.data, dataset.train.labels, dataset.test.data, dataset.test.labels
-
-   local mean =  {0.485 * 255, 0.456 * 255, 0.406 * 255}
-   local std = {0.229 * 255, 0.224 * 255, 0.225 * 255}
-   local trainDataset = datasets.VideoDataset(
-      trainData, trainLabels, 3, opt.clipSize or 1, 224, 224, mean, std,
-      'corner', true, nil, nil, nil, nil
-   )
-   local trainDataProvider = torch.DataProvider(
-      opt, trainDataset, 'train'
-   )
-
-   local testDataset = datasets.VideoDataset(
-      testData, testLabels, 3, opt.clipSize or 1, 224, 224, mean, std,
-      'center', false, nil, nil, nil, nil
-   )
-   local testDataProvider = torch.DataProvider(
-      opt, testDataset, 'test'
-   )
-   return trainDataProvider, testDataProvider
-end
-
-   
-
 local function getDataProvider(opt)
    if opt.dataset == 'svhn' then
       return svhn(opt)
@@ -210,10 +157,6 @@ local function getDataProvider(opt)
 
    if opt.dataset == 'cifar10' or opt.dataset == 'cifar100' then
       return cifar(opt)
-   end
-
-   if opt.dataset == 'ucf101' then
-      return ucf101(opt)
    end
 end
 
