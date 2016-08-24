@@ -7,4 +7,22 @@ This project prvides the Torch solution for the paper [Recurrent Convolutional N
 2. Download Torch version cifar10 and svhn datasets, and put them to rcnn/data/cifar/ and rcnn/data/svhn/, respectively.
 
 #How to use
-`CUDA_VISIBLE_DEVICES=0,1 th main.lua`
+Run main.lua with options to train RCNN models.
+An cifar10 example with accuracy is:
+`CUDA_VISIBLE_DEVICES=0,1 th main.lua -dataset cifar10 -model rcl3 -nGPU 2 -nThreads 4 -lr 0.1 -nChunks 100 -batchSize 64`
+An svhn example with accuracy is:
+`CUDA_VISIBLE_DEVICES=0,1 th main.lua -dataset svhn -model rcl3 -nGPU 2 -nThreads 4 -lr 0.1 -nChunks 100 -batchSize 64`
+To see all options and their default value, run:
+`th main.lua -help`
+
+#Code introduction
+
+1. main.lua: Overall procedure to run the code.
+
+2. dataset.lua: Prepare mini-batchs from specified datasets, including possible data augmentation.
+
+3. data.lua: Initiate the dataset and setup multi-thread data loaders.
+
+4. model.lua: Initiate the network models. Model files are placed in rcnn/models/.
+
+5. train.lua: Train and test network models.
