@@ -32,3 +32,5 @@ To see all options and their default value, run:
 4. model.lua: Initiate the network models. Model files are placed in rcnn/models/.
 
 5. train.lua: Train and test network models.
+
+6. parse.lua: Parse the input options.
