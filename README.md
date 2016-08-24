@@ -8,11 +8,17 @@ This project prvides the Torch solution for the paper [Recurrent Convolutional N
 
 #How to use
 Run main.lua with options to train RCNN models.
+
 An cifar10 example with accuracy is:
+
 `CUDA_VISIBLE_DEVICES=0,1 th main.lua -dataset cifar10 -model rcl3 -nGPU 2 -nThreads 4 -lr 0.1 -nChunks 100 -batchSize 64`
+
 An svhn example with accuracy is:
+
 `CUDA_VISIBLE_DEVICES=0,1 th main.lua -dataset svhn -model rcl3 -nGPU 2 -nThreads 4 -lr 0.1 -nChunks 100 -batchSize 64`
+
 To see all options and their default value, run:
+
 `th main.lua -help`
 
 #Code introduction
