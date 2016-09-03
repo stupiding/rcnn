@@ -15,7 +15,7 @@ An cifar10 example with error rate 4.59% is:
 
 An svhn example with error rate 1.5% is:
 
-`CUDA_VISIBLE_DEVICES=0,1,2,3 th main.lua -dataset svhn -model rcl3 -nGPU 4 -nThreads 8 -lr 0.1 -nChunks 50 -batchSize 256`
+`CUDA_VISIBLE_DEVICES=0,1,2,3 th main.lua -dataset svhn -model rcl3 -nGPU 4 -nThreads 8 -lr 0.1 -nChunks 100 -batchSize 256`
 
 To see all options and their default value, run:
 
